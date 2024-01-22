@@ -2,6 +2,9 @@ import cv2
 import torch
 import time
 from torchvision import models, transforms
+from torchvision.utils import draw_bounding_boxes
+
+
 
 # Load the model
 model = torch.hub.load('pytorch/vision:v0.9.0', 'densenet121', weights=True)
@@ -53,6 +56,8 @@ while True:
 
     # Display the original frame
     cv2.imshow('Webcam', frame)
+    drawn_boxes = draw_bounding_boxes(img, boxes, colors="red")
+    show(drawn_boxes)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
